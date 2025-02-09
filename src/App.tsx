@@ -1,10 +1,4 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import Window from "./components/window";
-import Wallpaper1 from "./images/wallpaper1.png";
-import Wallpaper2 from "./images/wallpaper2.jpeg";
-import Wallpaper3 from "./images/wallpaper3.png";
 import Wallpaper4 from "./images/wallpaper4.png";
 import BrandyHeart from "./images/brandyheart.png";
 import Resume from "./images/resume.png";
