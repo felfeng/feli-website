@@ -6,6 +6,8 @@ import mug from "../images/mug.png";
 import flower from "../images/flower.png";
 import intermezzo from "../images/intermezzo.png";
 import File from "./file";
+import back from "../images/back.png";
+import forward from "../images/forward.png";
 
 function Window() {
   const [position, setPosition] = useState({ x: 100, y: 100 });
@@ -194,6 +196,7 @@ function Window() {
             style={{ backgroundColor: "#27c840" }}
           ></div>
         </div>
+
       </div>
       {renderScreen()}
     </div>
