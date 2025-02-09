@@ -4,6 +4,7 @@ import froggy from "../images/froggy.png";
 import pomegranate from "../images/pomegranate.png";
 import mug from "../images/mug.png";
 import sunglasses from "../images/sunglasses.png";
+import intermezzo from "../images/intermezzo.png";
 import File from "./file";
 
 function Window() {
@@ -14,12 +15,15 @@ function Window() {
 
   const FileStamps = [
     { title: "about me", image: snoopy, screen: "aboutMe" },
-    { title: "projects", image: froggy, screen: "projects" },
     { title: "experience", image: pomegranate, screen: "experience" },
+    { title: "projects", image: froggy, screen: "projects" },
+    { title: "bookshelf", image: intermezzo, screen: "bookshelf" },
+    { title: "blog", image: mug, screen: "blog" },
+    { title: "contact", image: sunglasses, screen: "contact" },
   ];
 
   const handleClicks = () => {
-    setScreen("aboutMe");
+    setScreen("file");
   };
 
   const onMouseDown = (e) => {
