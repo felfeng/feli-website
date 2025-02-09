@@ -23,7 +23,7 @@ function Window() {
   ];
 
   const handleClicks = () => {
-    setScreen("file");
+    setScreen("aboutMe");
   };
 
   const onMouseDown = (e) => {
@@ -60,7 +60,6 @@ function Window() {
     };
   }, [dragging]);
 
-  // if you want to add more screens, add here :)
   const renderScreen = () => {
     if (screen === "aboutMe") {
       return (
