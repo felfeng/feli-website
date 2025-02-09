@@ -3,7 +3,7 @@ import snoopy from "../images/snoopy.png";
 import froggy from "../images/froggy.png";
 import pomegranate from "../images/pomegranate.png";
 import mug from "../images/mug.png";
-import sunglasses from "../images/sunglasses.png";
+import flower from "../images/flower.png";
 import intermezzo from "../images/intermezzo.png";
 import File from "./file";
 
@@ -19,7 +19,7 @@ function Window() {
     { title: "projects", image: froggy, screen: "projects" },
     { title: "bookshelf", image: intermezzo, screen: "bookshelf" },
     { title: "blog", image: mug, screen: "blog" },
-    { title: "contact", image: sunglasses, screen: "contact" },
+    { title: "contact", image: flower, screen: "contact" },
   ];
 
   const handleClicks = () => {
