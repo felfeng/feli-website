@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
-import aboutmepic from "../images/aboutme.png";
-import AboutMe from "./aboutme";
+import snoopy from "../images/snoopy.png";
+import froggy from "../images/froggy.png";
+import pomegranate from "../images/pomegranate.png";
+import mug from "../images/mug.png";
+import sunglasses from "../images/sunglasses.png";
+import File from "./file";
 
 function Window() {
   const [position, setPosition] = useState({ x: 100, y: 100 });
@@ -8,11 +12,10 @@ function Window() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [screen, setScreen] = useState("home");
 
-  const aboutMeStamps = [
-    { title: "about me", image: aboutmepic, screen: "aboutMe" },
-    { title: "projects", image: aboutmepic, screen: "projects" },
-    { title: "experience", image: aboutmepic, screen: "experience" },
-
+  const FileStamps = [
+    { title: "about me", image: snoopy, screen: "aboutMe" },
+    { title: "projects", image: froggy, screen: "projects" },
+    { title: "experience", image: pomegranate, screen: "experience" },
   ];
 
   const handleClicks = () => {
@@ -66,7 +69,7 @@ function Window() {
               >
                 home
               </button>
-              {aboutMeStamps.map((item) => (
+              {FileStamps.map((item) => (
                 <button
                   key={item.title}
                   className="flex mr-auto mb-1"
@@ -97,7 +100,7 @@ function Window() {
               >
                 home
               </button>
-              {aboutMeStamps.map((item) => (
+              {FileStamps.map((item) => (
                 <button
                   key={item.title}
                   className="flex mr-auto mb-1"
@@ -107,9 +110,7 @@ function Window() {
                 </button>
               ))}
             </div>
-            <div className="flex ml-auto h-7 w-72 text-left">
-            projects
-            </div>
+            <div className="flex ml-auto h-7 w-72 text-left">projects</div>
           </div>
         </div>
       );
@@ -124,7 +125,7 @@ function Window() {
               >
                 home
               </button>
-              {aboutMeStamps.map((item) => (
+              {FileStamps.map((item) => (
                 <button
                   key={item.title}
                   className="flex mr-auto mb-1"
@@ -134,9 +135,7 @@ function Window() {
                 </button>
               ))}
             </div>
-            <div className="flex ml-auto h-7 w-72 text-left">
-              experience
-            </div>
+            <div className="flex ml-auto h-7 w-72 text-left">experience</div>
           </div>
         </div>
       );
@@ -145,8 +144,8 @@ function Window() {
     return (
       <div className="p-10">
         <div className="justify-items-center grid grid-cols-8 gap-y-5 gap-x-6 mt-5">
-          {aboutMeStamps.map((item) => (
-            <AboutMe
+          {FileStamps.map((item) => (
+            <File
               key={item.title}
               image={item.image}
               title={item.title}
@@ -169,7 +168,7 @@ function Window() {
         background: "#7F7F7F",
       }}
       className="rounded-lg w-4/6 h-4/6 border-2"
-    > 
+    >
       <div
         className="rounded-t-lg"
         style={{
