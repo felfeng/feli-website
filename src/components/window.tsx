@@ -26,7 +26,7 @@ function Window() {
     setScreen("aboutMe");
   };
 
-  const onMouseDown = (e) => {
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setDragging(true);
     setOffset({
       x: e.clientX - position.x,
@@ -34,7 +34,7 @@ function Window() {
     });
   };
 
-  const onMouseMove = (e) => {
+  const onMouseMove = (e: MouseEvent) => {
     if (!dragging) return;
     setPosition({
       x: e.clientX - offset.x,
