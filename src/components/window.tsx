@@ -170,7 +170,7 @@ function Window() {
         userSelect: "none",
         background: "#7F7F7F",
       }}
-      className="rounded-lg w-4/6 h-4/6 border-2"
+      className="rounded-lg w-4/6 h-4/6"
     >
       <div
         className="rounded-t-lg"
