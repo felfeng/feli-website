@@ -2,7 +2,6 @@ import Window from "./components/window";
 import Wallpaper4 from "./images/wallpaper4.png";
 import BrandyHeart from "./images/brandyheart.png";
 import Resume from "./images/resume.png";
-
 import "./App.css";
 
 function App() {
