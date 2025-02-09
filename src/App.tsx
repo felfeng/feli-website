@@ -15,7 +15,7 @@ function App() {
       <Window />
       <div
         className="flex flex-row h-8 min-w-screen font-semibold text-white"
-        style={{ backgroundColor: "#3A5F96" }}
+        style={{ backgroundColor: "#44131b" }}
       >
         <div className="ml-2 w-4 py-2 ml-5">
           <img src={BrandyHeart} alt={BrandyHeart}></img>
