@@ -13,7 +13,8 @@ function Window() {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [screen, setScreen] = useState("home");
+  const [screenHistory, setScreenHistory] = useState<string[]>(["home"]);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const FileStamps = [
     { title: "about me", image: snoopy, screen: "aboutMe" },
@@ -24,8 +25,22 @@ function Window() {
     { title: "contact", image: flower, screen: "contact" },
   ];
 
-  const handleClicks = () => {
-    setScreen("aboutMe");
+  const navigateTo = (newScreen: string) => {
+    const newHistory = screenHistory.slice(0, currentIndex + 1);
+    setScreenHistory([...newHistory, newScreen]);
+    setCurrentIndex(newHistory.length);
+  };
+
+  const goBack = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  const goForward = () => {
+    if (currentIndex < screenHistory.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
   };
 
   const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -62,23 +77,19 @@ function Window() {
     };
   }, [dragging]);
 
+  const currentScreen = screenHistory[currentIndex];
+
   const renderScreen = () => {
-    if (screen === "aboutMe") {
+    if (currentScreen === "aboutMe") {
       return (
         <div className="p-4 text-white">
           <div className="flex flex-row">
             <div className="flex flex-col">
-              <button
-                className="flex mr-auto mb-1"
-                onClick={() => setScreen("home")}
-              >
-                home
-              </button>
-              {FileStamps.map((item) => (
+            {FileStamps.map((item) => (
                 <button
                   key={item.title}
                   className="flex mr-auto mb-1"
-                  onClick={() => setScreen(item.screen)}
+                  onClick={() => navigateTo(item.screen)}
                 >
                   {item.title}
                 </button>
@@ -94,22 +105,16 @@ function Window() {
           </div>
         </div>
       );
-    } else if (screen == "projects") {
+    } else if (currentScreen == "projects") {
       return (
         <div className="p-4 text-white">
           <div className="flex flex-row">
             <div className="flex flex-col">
-              <button
-                className="flex mr-auto mb-1"
-                onClick={() => setScreen("home")}
-              >
-                home
-              </button>
-              {FileStamps.map((item) => (
+            {FileStamps.map((item) => (
                 <button
                   key={item.title}
                   className="flex mr-auto mb-1"
-                  onClick={() => setScreen(item.screen)}
+                  onClick={() => navigateTo(item.screen)}
                 >
                   {item.title}
                 </button>
@@ -119,22 +124,16 @@ function Window() {
           </div>
         </div>
       );
-    } else if (screen == "experience") {
+    } else if (currentScreen == "experience") {
       return (
         <div className="p-4 text-white">
           <div className="flex flex-row">
             <div className="flex flex-col">
-              <button
-                className="flex mr-auto mb-1"
-                onClick={() => setScreen("home")}
-              >
-                home
-              </button>
-              {FileStamps.map((item) => (
+            {FileStamps.map((item) => (
                 <button
                   key={item.title}
                   className="flex mr-auto mb-1"
-                  onClick={() => setScreen(item.screen)}
+                  onClick={() => navigateTo(item.screen)}
                 >
                   {item.title}
                 </button>
@@ -149,12 +148,12 @@ function Window() {
     return (
       <div className="p-10">
         <div className="justify-items-center grid grid-cols-8 gap-y-5 gap-x-6 mt-5">
-          {FileStamps.map((item) => (
+        {FileStamps.map((item) => (
             <File
               key={item.title}
               image={item.image}
               title={item.title}
-              onClick={handleClicks}
+              onClick={() => navigateTo(item.screen)}
             />
           ))}
         </div>
@@ -182,7 +181,7 @@ function Window() {
           cursor: "move",
         }}
       >
-        <div className="flex flex-row">
+        <div className="flex flex-row items-center">
           <div
             className="rounded-full w-4 h-4 mr-2"
             style={{ backgroundColor: "#ff5f57" }}
@@ -195,6 +194,21 @@ function Window() {
             className="rounded-full w-4 h-4"
             style={{ backgroundColor: "#27c840" }}
           ></div>
+
+          <button
+            onClick={goBack}
+            disabled={currentIndex === 0}
+            className="mr-2 disabled:opacity-50"
+          >
+            <img src={back} alt="Back" className="w-4 h-4 ml-4" />
+          </button>
+          <button
+            onClick={goForward}
+            disabled={currentIndex === screenHistory.length - 1}
+            className="mr-4 disabled:opacity-50"
+          >
+            <img src={forward} alt="Forward" className="w-4 h-4 ml-2" />
+          </button> 
         </div>
 
       </div>
