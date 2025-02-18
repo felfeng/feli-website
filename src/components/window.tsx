@@ -9,12 +9,28 @@ import File from "./file";
 import back from "../images/back.png";
 import forward from "../images/forward.png";
 
+type FileContent = {
+  type: 'file';
+  icon: string;
+  content: string;
+};
+
+type FolderContent = {
+  type: 'folder';
+  icon: string;
+  contents: Record<string, FileSystemItem>;
+};
+
+type FileSystemItem = FileContent | FolderContent;
+
 function Window() {
   const [position, setPosition] = useState({ x: 100, y: 100 });
   const [dragging, setDragging] = useState(false);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [screenHistory, setScreenHistory] = useState<string[]>(["home"]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [openFolders, setOpenFolders] = useState<Set<string>>(new Set(['about']));
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   const FileStamps = [
     { title: "about me", image: snoopy, screen: "aboutMe" },
@@ -24,6 +40,67 @@ function Window() {
     { title: "blog", image: mug, screen: "blog" },
     { title: "contact", image: flower, screen: "contact" },
   ];
+
+  const fileSystem = {
+    about: {
+      type: 'folder' as const,
+      icon: snoopy,
+      contents: {
+        'profile.md': {
+          type: 'file' as const,
+          icon: snoopy,
+          content: `# About Me\n\nHey! I'm [Your Name]\n\nWelcome to my digital space!`
+        },
+        'interests.md': {
+          type: 'file' as const,
+          icon: snoopy,
+          content: `# My Interests\n\n- Technology\n- Design\n- Innovation`
+        }
+      }
+    },
+    experience: {
+      type: 'folder' as const,
+      icon: pomegranate,
+      contents: {
+        'work.md': {
+          type: 'file' as const,
+          icon: pomegranate,
+          content: `# Work Experience\n\n## Current Role\n- Position\n- Responsibilities`
+        },
+        'skills.md': {
+          type: 'file' as const,
+          icon: pomegranate,
+          content: `# Technical Skills\n\n- Frontend: React, TypeScript\n- Backend: Node.js\n- Other: Git, AWS`
+        }
+      }
+    },
+    projects: {
+      type: 'folder' as const,
+      icon: froggy,
+      contents: {
+        'project1.md': {
+          type: 'file' as const,
+          icon: froggy,
+          content: `# Project 1\n\n## Overview\nDescription of your first project`
+        },
+        'project2.md': {
+          type: 'file' as const,
+          icon: froggy,
+          content: `# Project 2\n\n## Overview\nDescription of your second project`
+        }
+      }
+    }
+  };
+
+  const toggleFolder = (folderId: string) => {
+    const newOpenFolders = new Set(openFolders);
+    if (newOpenFolders.has(folderId)) {
+      newOpenFolders.delete(folderId);
+    } else {
+      newOpenFolders.add(folderId);
+    }
+    setOpenFolders(newOpenFolders);
+  };
 
   const navigateTo = (newScreen: string) => {
     const newHistory = screenHistory.slice(0, currentIndex + 1);
@@ -77,69 +154,75 @@ function Window() {
     };
   }, [dragging]);
 
+  const renderFileSystem = (structure: Record<string, FileSystemItem>, level = 0) => {
+    return Object.entries(structure).map(([id, item]) => (
+      <div key={id} className="select-none">
+        <div
+          className={`flex items-center px-4 py-1 space-x-2 cursor-pointer hover:bg-gray-700 ${
+            selectedFile === id ? 'bg-gray-600' : ''
+          }`}
+          style={{ paddingLeft: `${level * 16 + 16}px` }}
+          onClick={() => {
+            if (item.type === 'folder') {
+              toggleFolder(id);
+            } else {
+              setSelectedFile(id);
+            }
+          }}
+        >
+          <img src={item.icon} alt="" className="w-5 h-5" />
+          <span className="text-sm text-white">{id}</span>
+        </div>
+        {item.type === 'folder' && openFolders.has(id) && (
+          <div className="py-1">
+            {renderFileSystem(item.contents, level + 1)}
+          </div>
+        )}
+      </div>
+    ));
+  };
+
+  const renderFileContent = (content: string) => {
+    return (
+      <div className="p-4 font-mono text-sm text-white whitespace-pre-wrap">
+        {content}
+      </div>
+    );
+  };
+
+  const getSelectedFileContent = () => {
+    for (const folder of Object.values(fileSystem)) {
+      if (folder.type === 'folder') {
+        for (const [id, file] of Object.entries(folder.contents)) {
+          if (id === selectedFile && file.type === 'file') {
+            return file.content;
+          }
+        }
+      }
+    }
+    return null;
+  };
+
   const currentScreen = screenHistory[currentIndex];
 
   const renderScreen = () => {
-    if (currentScreen === "aboutMe") {
+    if (currentScreen !== "home") {
       return (
-        <div className="p-4 text-white">
-          <div className="flex flex-row">
-            <div className="flex flex-col">
-            {FileStamps.map((item) => (
-                <button
-                  key={item.title}
-                  className="flex mr-auto mb-1"
-                  onClick={() => navigateTo(item.screen)}
-                >
-                  {item.title}
-                </button>
-              ))}
-            </div>
-            <div className="flex ml-auto h-7 w-72 text-left">
-              I am a Computer Science student at UC Davis passionate about
-              product management, software engineering, and building
-              user-centric products. I thrive in fast-paced environments, love
-              out-of-the-box problem-solving, and enjoy exploring the
-              intersection of tech, design, and business.
-            </div>
+        <div className="flex h-full">
+          {/* Sidebar */}
+          <div className="w-64 bg-gray-800 overflow-y-auto">
+            {renderFileSystem(fileSystem)}
           </div>
-        </div>
-      );
-    } else if (currentScreen == "projects") {
-      return (
-        <div className="p-4 text-white">
-          <div className="flex flex-row">
-            <div className="flex flex-col">
-            {FileStamps.map((item) => (
-                <button
-                  key={item.title}
-                  className="flex mr-auto mb-1"
-                  onClick={() => navigateTo(item.screen)}
-                >
-                  {item.title}
-                </button>
-              ))}
-            </div>
-            <div className="flex ml-auto h-7 w-72 text-left">projects</div>
-          </div>
-        </div>
-      );
-    } else if (currentScreen == "experience") {
-      return (
-        <div className="p-4 text-white">
-          <div className="flex flex-row">
-            <div className="flex flex-col">
-            {FileStamps.map((item) => (
-                <button
-                  key={item.title}
-                  className="flex mr-auto mb-1"
-                  onClick={() => navigateTo(item.screen)}
-                >
-                  {item.title}
-                </button>
-              ))}
-            </div>
-            <div className="flex ml-auto h-7 w-72 text-left">experience</div>
+          
+          {/* Content */}
+          <div className="flex-1 overflow-y-auto">
+            {selectedFile ? (
+              renderFileContent(getSelectedFileContent() || '')
+            ) : (
+              <div className="flex items-center justify-center h-full text-gray-400">
+                Select a file to view its contents
+              </div>
+            )}
           </div>
         </div>
       );
@@ -148,7 +231,7 @@ function Window() {
     return (
       <div className="p-10">
         <div className="justify-items-center grid grid-cols-8 gap-y-5 gap-x-6 mt-5">
-        {FileStamps.map((item) => (
+          {FileStamps.map((item) => (
             <File
               key={item.title}
               image={item.image}
@@ -208,9 +291,8 @@ function Window() {
             className="mr-4 disabled:opacity-50"
           >
             <img src={forward} alt="Forward" className="w-4 h-4 ml-2" />
-          </button> 
+          </button>
         </div>
-
       </div>
       {renderScreen()}
     </div>
