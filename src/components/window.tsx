@@ -52,11 +52,6 @@ function Window() {
           icon: fileIcon,
           content: `# About Me\n\nHey, I'm Felicia!\n\nWelcome to my desktop 🧸\n\nI'm a 4th year Computer Science student at UC Davis passionate about building user-centric software products. I thrive in fast-paced environments, love out-of-the-box problem-solving, and enjoy exploring the intersection of coding, design, and business.\n\nI’m a fervent lover of art at heart, so you’ll most likely find me stealing away hours of my day exploring new films, novels, or recording hour-long voice memos as I walk back home from my classes, ruminating on the human condition while listening to The Cranberries.`
         },
-        'interests.md': {
-          type: 'file' as const,
-          icon: fileIcon,
-          content: `# My Interests\n\n- Technology\n- Design\n- Innovation`
-        }
       }
     },
     experience: {
@@ -65,12 +60,12 @@ function Window() {
       contents: {
         'work.md': {
           type: 'file' as const,
-          icon: pomegranate,
+          icon: fileIcon,
           content: `# Work Experience\n\n## Current Role\n- Position\n- Responsibilities`
         },
         'skills.md': {
           type: 'file' as const,
-          icon: pomegranate,
+          icon: fileIcon,
           content: `# Technical Skills\n\n- Frontend: React, TypeScript\n- Backend: Node.js\n- Other: Git, AWS`
         }
       }
@@ -81,12 +76,12 @@ function Window() {
       contents: {
         'project1.md': {
           type: 'file' as const,
-          icon: froggy,
+          icon: fileIcon,
           content: `# Project 1\n\n## Overview\nDescription of your first project`
         },
         'project2.md': {
           type: 'file' as const,
-          icon: froggy,
+          icon: fileIcon,
           content: `# Project 2\n\n## Overview\nDescription of your second project`
         }
       }
