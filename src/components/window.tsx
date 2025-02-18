@@ -49,7 +49,7 @@ function Window() {
         'profile.md': {
           type: 'file' as const,
           icon: snoopy,
-          content: `# About Me\n\nHey! I'm [Your Name]\n\nWelcome to my digital space!`
+          content: `# About Me\n\nHey, I'm Felicia!\n\nWelcome to my desktop 🧸\n\nI'm a 4th year Computer Science student at UC Davis passionate about building user-centric software products. I thrive in fast-paced environments, love out-of-the-box problem-solving, and enjoy exploring the intersection of coding, design, and business.\n\nI’m a fervent lover of art at heart, so you’ll most likely find me stealing away hours of my day exploring new films, novels, or recording hour-long voice memos as I walk back home from my classes, ruminating on the human condition while listening to The Cranberries.`
         },
         'interests.md': {
           type: 'file' as const,
