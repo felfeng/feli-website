@@ -8,16 +8,16 @@ import intermezzo from "../images/intermezzo.png";
 import File from "./file";
 import back from "../images/back.png";
 import forward from "../images/forward.png";
-import fileIcon from "../images/file-icon.png"
+import fileIcon from "../images/file-icon.png";
 
 type FileContent = {
-  type: 'file';
+  type: "file";
   icon: string;
   content: string;
 };
 
 type FolderContent = {
-  type: 'folder';
+  type: "folder";
   icon: string;
   contents: Record<string, FileSystemItem>;
 };
@@ -30,7 +30,9 @@ function Window() {
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [screenHistory, setScreenHistory] = useState<string[]>(["home"]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [openFolders, setOpenFolders] = useState<Set<string>>(new Set(['about']));
+  const [openFolders, setOpenFolders] = useState<Set<string>>(
+    new Set(["about"])
+  );
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   const FileStamps = [
@@ -44,70 +46,79 @@ function Window() {
 
   const fileSystem = {
     about: {
-      type: 'folder' as const,
+      type: "folder" as const,
       icon: snoopy,
       contents: {
-        'profile.md': {
-          type: 'file' as const,
+        "profile.md": {
+          type: "file" as const,
           icon: fileIcon,
-          content: `# About Me\n\nHey, I'm Felicia!\n\nWelcome to my desktop 🧸\n\nI'm a 4th year Computer Science student at UC Davis passionate about building user-centric software products. I thrive in fast-paced environments, love out-of-the-box problem-solving, and enjoy exploring the intersection of coding, design, and business.\n\nI’m a fervent lover of art at heart, so you’ll most likely find me stealing away hours of my day exploring new films, novels, or recording hour-long voice memos as I walk back home from my classes, ruminating on the human condition while listening to The Cranberries.`
+          content: `# About Me\n\nHey, I'm Felicia!\n\nWelcome to my desktop 🧸\n\nI'm a 4th year Computer Science student at UC Davis passionate about building user-centric software products. I thrive in fast-paced environments, love out-of-the-box problem-solving, and enjoy exploring the intersection of coding, design, and business.\n\nI’m a fervent lover of art at heart, so you’ll most likely find me stealing away hours of my day exploring new films, novels, or recording hour-long voice memos as I walk back home from my classes, ruminating on the human condition while listening to The Cranberries.`,
         },
-      }
+      },
     },
     experience: {
-      type: 'folder' as const,
+      type: "folder" as const,
       icon: pomegranate,
       contents: {
-        'work.md': {
-          type: 'file' as const,
+        "work.md": {
+          type: "file" as const,
           icon: fileIcon,
-          content: `# Work Experience\n\n## Current Role\n- Position\n- Responsibilities`
+          content: `# Work Experience\n\n## Current Role\n- Position\n- Responsibilities`,
         },
-        'skills.md': {
-          type: 'file' as const,
+        "skills.md": {
+          type: "file" as const,
           icon: fileIcon,
-          content: `# Technical Skills\n\n- Frontend: React, TypeScript\n- Backend: Node.js\n- Other: Git, AWS`
-        }
-      }
+          content: `# Technical Skills\n\n- Frontend: React, TypeScript\n- Backend: Node.js\n- Other: Git, AWS`,
+        },
+      },
     },
     projects: {
-      type: 'folder' as const,
+      type: "folder" as const,
       icon: froggy,
       contents: {
-        'StarLinks.md': {
-          type: 'file' as const,
+        "StarLinks.md": {
+          type: "file" as const,
           icon: fileIcon,
           content: `# StarLinks\n\n
           This project idea sprung up from the need to create a project that can be easily iterated on every “Hack Night,” a weekly three-hour long creative development community that encourages students to return to build and demo fun projects.\n\n
           I pulled, in typical Felicia fashion, from two different areas of my hobbies (film and obsessively playing the New York Times Connections game) and came up with this movie-actor matching connections game. When I built this out rudimentarily, I felt like Remy from Ratatouille biting into the cheese and strawberry simultaneously.\n\n
-          I knew that I had hit a goldmine when, every time I would demo this at Hack Nights, people in the audience would pull up the website to also complete the game, even going as far as to play multiple games and then gleefully come up to me afterwards sharing their excitement about their success.`
+          I knew that I had hit a goldmine when, every time I would demo this at Hack Nights, people in the audience would pull up the website to also complete the game, even going as far as to play multiple games and then gleefully come up to me afterwards sharing their excitement about their success.`,
         },
-        'project2.md': {
-          type: 'file' as const,
+        "project2.md": {
+          type: "file" as const,
           icon: fileIcon,
-          content: `# Project 2\n\n## Overview\nDescription of your second project`
-        }
-      }
+          content: `# Project 2\n\n## Overview\nDescription of your second project`,
+        },
+      },
     },
     bookshelf: {
-      type: 'folder' as const,
-      icon: froggy,
+      type: "folder" as const,
+      icon: intermezzo,
       contents: {
-        'StarLinks.md': {
-          type: 'file' as const,
+        "StarLinks.md": {
+          type: "file" as const,
           icon: fileIcon,
           content: `# StarLinks\n\n
           This project idea sprung up from the need to create a project that can be easily iterated on every “Hack Night,” a weekly three-hour long creative development community that encourages students to return to build and demo fun projects.\n\n
           I pulled, in typical Felicia fashion, from two different areas of my hobbies (film and obsessively playing the New York Times Connections game) and came up with this movie-actor matching connections game. When I built this out rudimentarily, I felt like Remy from Ratatouille biting into the cheese and strawberry simultaneously.\n\n
-          I knew that I had hit a goldmine when, every time I would demo this at Hack Nights, people in the audience would pull up the website to also complete the game, even going as far as to play multiple games and then gleefully come up to me afterwards sharing their excitement about their success.`
+          I knew that I had hit a goldmine when, every time I would demo this at Hack Nights, people in the audience would pull up the website to also complete the game, even going as far as to play multiple games and then gleefully come up to me afterwards sharing their excitement about their success.`,
         },
-        'project2.md': {
-          type: 'file' as const,
+      },
+    },
+    blog: {
+      type: "folder" as const,
+      icon: mug,
+      contents: {
+        "StarLinks.md": {
+          type: "file" as const,
           icon: fileIcon,
-          content: `# Project 2\n\n## Overview\nDescription of your second project`
-        }
-      }
-    }
+          content: `# StarLinks\n\n
+          This project idea sprung up from the need to create a project that can be easily iterated on every “Hack Night,” a weekly three-hour long creative development community that encourages students to return to build and demo fun projects.\n\n
+          I pulled, in typical Felicia fashion, from two different areas of my hobbies (film and obsessively playing the New York Times Connections game) and came up with this movie-actor matching connections game. When I built this out rudimentarily, I felt like Remy from Ratatouille biting into the cheese and strawberry simultaneously.\n\n
+          I knew that I had hit a goldmine when, every time I would demo this at Hack Nights, people in the audience would pull up the website to also complete the game, even going as far as to play multiple games and then gleefully come up to me afterwards sharing their excitement about their success.`,
+        },
+      },
+    },
   };
 
   const toggleFolder = (folderId: string) => {
@@ -172,16 +183,19 @@ function Window() {
     };
   }, [dragging]);
 
-  const renderFileSystem = (structure: Record<string, FileSystemItem>, level = 0) => {
+  const renderFileSystem = (
+    structure: Record<string, FileSystemItem>,
+    level = 0
+  ) => {
     return Object.entries(structure).map(([id, item]) => (
       <div key={id} className="select-none">
         <div
           className={`flex items-center px-4 py-1 space-x-2 cursor-pointer hover:bg-gray-700 ${
-            selectedFile === id ? 'bg-gray-600' : ''
+            selectedFile === id ? "bg-gray-600" : ""
           }`}
           style={{ paddingLeft: `${level * 16 + 16}px` }}
           onClick={() => {
-            if (item.type === 'folder') {
+            if (item.type === "folder") {
               toggleFolder(id);
             } else {
               setSelectedFile(id);
@@ -191,7 +205,7 @@ function Window() {
           <img src={item.icon} alt="" className="w-5 h-5" />
           <span className="text-sm text-white">{id}</span>
         </div>
-        {item.type === 'folder' && openFolders.has(id) && (
+        {item.type === "folder" && openFolders.has(id) && (
           <div className="py-1">
             {renderFileSystem(item.contents, level + 1)}
           </div>
@@ -210,9 +224,9 @@ function Window() {
 
   const getSelectedFileContent = () => {
     for (const folder of Object.values(fileSystem)) {
-      if (folder.type === 'folder') {
+      if (folder.type === "folder") {
         for (const [id, file] of Object.entries(folder.contents)) {
-          if (id === selectedFile && file.type === 'file') {
+          if (id === selectedFile && file.type === "file") {
             return file.content;
           }
         }
@@ -231,11 +245,11 @@ function Window() {
           <div className="w-64 bg-gray-800 overflow-y-auto">
             {renderFileSystem(fileSystem)}
           </div>
-          
+
           {/* Content */}
           <div className="flex-1 overflow-y-auto">
             {selectedFile ? (
-              renderFileContent(getSelectedFileContent() || '')
+              renderFileContent(getSelectedFileContent() || "")
             ) : (
               <div className="flex items-center justify-center h-full text-white">
                 Select a file to view its contents
