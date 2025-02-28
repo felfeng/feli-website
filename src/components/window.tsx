@@ -119,6 +119,20 @@ function Window() {
         },
       },
     },
+    contact: {
+      type: "folder" as const,
+      icon: flower,
+      contents: {
+        "StarLinks.md": {
+          type: "file" as const,
+          icon: fileIcon,
+          content: `# StarLinks\n\n
+          This project idea sprung up from the need to create a project that can be easily iterated on every “Hack Night,” a weekly three-hour long creative development community that encourages students to return to build and demo fun projects.\n\n
+          I pulled, in typical Felicia fashion, from two different areas of my hobbies (film and obsessively playing the New York Times Connections game) and came up with this movie-actor matching connections game. When I built this out rudimentarily, I felt like Remy from Ratatouille biting into the cheese and strawberry simultaneously.\n\n
+          I knew that I had hit a goldmine when, every time I would demo this at Hack Nights, people in the audience would pull up the website to also complete the game, even going as far as to play multiple games and then gleefully come up to me afterwards sharing their excitement about their success.`,
+        },
+      },
+    },
   };
 
   const toggleFolder = (folderId: string) => {
